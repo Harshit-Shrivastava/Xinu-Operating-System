@@ -338,6 +338,8 @@ void yyfree (void *  );
 
 #define YY_AT_BOL() (YY_CURRENT_BUFFER_LVALUE->yy_at_bol)
 
+/* Begin user sect3 */
+
 typedef unsigned char YY_CHAR;
 
 FILE *yyin = (FILE *) 0, *yyout = (FILE *) 0;
@@ -495,7 +497,7 @@ char *yytext;
 extern int linectr;
 extern int brkcount;
 int skipping;
-#line 499 "lex.yy.c"
+#line 501 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -684,7 +686,7 @@ YY_DECL
     
 #line 10 "config.l"
 
-#line 688 "lex.yy.c"
+#line 690 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -780,9 +782,9 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 13 "config.l"
-{ if (! skipping)
+{ if (! skipping) 
                 if (++brkcount == 2)
-                { return 0; /* EOF */ }
+                { return 0; /* EOF */ }	      
                 else
                 { return DEFBRK; }            }
 	YY_BREAK
@@ -904,10 +906,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 41 "config.l"
+#line 42 "config.l"
 ECHO;
 	YY_BREAK
-#line 911 "lex.yy.c"
+#line 913 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1905,4 +1907,11 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 41 "config.l"
+#line 42 "config.l"
+
+
+
+int wrapped_input(void) {
+        return input();
+}
+
