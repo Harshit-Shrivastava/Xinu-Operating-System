@@ -9,7 +9,10 @@ shellcmd xsh_prodcons(int nargs, char *args[])
   //Argument verifications and validations
   int count = 2000;             //local varible to hold count
 
-  //check args[1] if present assign value to count
+if(nargs == 2)
+{
+count == atoi(args[1]);
+}
 
   //create the process producer and consumer and put them in ready queue.
   //Look at the definations of function create and resume in the system folder for reference.      
