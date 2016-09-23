@@ -3,9 +3,9 @@
 
 void producer(int32 count) {
 	int32 i;
-	for(i = 0; i < count; i++)
+	for(i = 1; i <= count; i++)
 	{
-		n++;
+	   n = i;
 	}
 }
 

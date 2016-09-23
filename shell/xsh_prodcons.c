@@ -7,13 +7,13 @@ int32 n;                 //Definition for global variable 'n'
 shellcmd xsh_prodcons(int32 nargs, char *args[])
 {
 	//Argument verifications and validations
-	int32 count;             //local varible to hold count
+	int32 count=2000;             //local varible to hold count
 
 	if(nargs == 2)
 	{	
-		count == args[1];
+		count = atoi(args[1]);
 	}
-	else count = 2000;
+	
 
 	//create the process producer and consumer and put them in ready queue.
 	//Look at the definations of function create and resume in the system folder for reference.      
