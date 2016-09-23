@@ -1,0 +1,9 @@
+1. Yes, the program outputs garbage (unexpected) values. This is because of context switching between the producer and the consumer. 
+
+When the waiting process resumes, this process runs from the previous state stored in the Pr. Hence the garbage values.
+
+2. Not all the values are getting consumed by the consumer. For a small count of value 20, the final value 8 is being printed by the consumer. Xinu does execute processes concurrently, Inspite of that, the producer runs to the end of its execution cycle before the consumer starts executing.
+
+Producer() - Venkat Sambandhan - The Producer is the first process to run. The job of the producer is to iterate through a loop for a user defined count or default count of 2000, initialise a value to the external (global) variable(shared buffer) n and prints out the produced value.
+
+Consumer() - Harshit Shrivastava - The consumer function iterates through a loop for a user defined count or default count of 2000, and prints the value of shared buffer/ global variable n.

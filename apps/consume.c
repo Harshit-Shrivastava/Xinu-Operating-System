@@ -3,9 +3,9 @@
 
 void consumer(int count) {
 	int32 i;
-	for(i=1; i<count; i++)
+	for(i=1; i<=count; i++)
 	{
-		printf("Consumed %d\n", n);
+		printf("Consumed value %d\n", n);
 	}
 }
 
