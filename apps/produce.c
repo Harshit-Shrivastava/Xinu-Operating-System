@@ -6,6 +6,7 @@ void producer(int32 count) {
 	for(i = 1; i <= count; i++)
 	{
 	   n = i;
+	   printf("Producer value: %d \n",i);
 	}
 }
 
