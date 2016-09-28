@@ -52,8 +52,8 @@ shellcmd xsh_prodcons(int32 nargs, char *args[])
 	//Look at the definations of function create and resume in the system folder for reference.      
 	consumed = semcreate(1);
 	produced = semcreate(0);
-	resume( create(producer, 1024, 20, "consumer", 3, consumed, produced, count));
-	//resume( create(producer, 1024, 20, "producer", 3, consumed, produced, count));
+	//resume( create(producer, 1024, 20, "consumer", 3, consumed, produced, count));
+	resume( create(producer, 1024, 20, "producer", 3, consumed, produced, count));
 	resume( create(consumer, 1024, 20, "consumer", 3, consumed, produced, count));
 	return (0);
 }
