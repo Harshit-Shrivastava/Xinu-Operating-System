@@ -4,8 +4,13 @@
 int32 n;                 //Definition for global variable 'n'
 /*Now global variable n will be on Heap so it is accessible all the processes i.e. consume and produce*/
 
+sid32 produced, consumed;
+
 shellcmd xsh_prodcons(int32 nargs, char *args[])
 {
+	produced = semcreate(0);
+	consumed = semcreate(1);
+
 	//Argument verifications and validations
 	int32 count=2000;             //local varible to hold count
 	
