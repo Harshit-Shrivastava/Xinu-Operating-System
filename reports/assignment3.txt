@@ -1,0 +1,62 @@
+Question 1:-
+------------
+Synchronization is acheived using semaphores. In Xinu, semcreate() initializes the semaphores. The semaphore 'produced' is initialized to 0 and
+semaphore 'consumed' is initialized to 1. wait() and signal() functions provided by Xinu are used to decrease or increase the value of the semaphore respectively.
+
+Sychronization is acheived by the producer and consumer processes by using semaphores. Before accessing the shared resource, a process calls wait()
+on the semaphore and calls signal() after it has completed access. The term critical section is used to refer to the section of code that cannot be
+executed by more than one process at a time.
+
+Initially there is no restriction on the producer. As soon as the producer has finished executing it's critical section, it signals the consumer by
+setting the value of produced semaphore to 1. As the value of the produced semaphore is one, the consumer can now consume the values produced. Hence,
+the consumer starts executing it's critical section. Once the consumer has executed it's critical section, it will notify the producer that it has
+finished executing it's critical section.
+
+This switching of processes will continue till they have reached the limit, which is either the value specified by the user, or the default value of 2000 specified in the program.
+
+Question 2:-
+------------
+
+Two semaphores will be required to achieve synchronization.
+	 
+As an example, if we suppose to create 2 processes, producer and consumer, with a single sempahore S. Let us initialize it to 1. Further assume that the producer gets executed first. Now S is decremented to 0. Producer finishes execution and signals on S, which is when S increments to 1 and both
+processes wait on S. At this point, there is an equal chance of either processes getting executed. As a result, producer can execute again resulting in no synchronisation.
+	
+	void producer(int count,sid32 S)
+	{
+		int i;
+	  	for(i=1;i<=count;i++)
+	    	{
+	      		wait(S);	
+	      		n=i;	
+	      		printf("produced : %d\n",n);
+	      		signal(S);
+	   	}
+	}
+	
+	void consumer(int count,sid32 S)
+	{     
+		int i;
+	  	for(i=1;i<=count;i++)
+	    	{
+	      		wait(S);
+	      		printf("consumed: %d \n",n);
+	      		signal(S);
+	    	}
+	}
+	
+	
+Usually, a single sempahore is used when same peice of code(critical section) with shared resources is exexcuted by multiple processes to gain lock 
+on that piece of code. In that case mutex (or a binary semaphore) is used.
+	 
+Contributions:-
+---------------
+Producer() - Harshit - Producer is the first process to run from main. Job of the producer is to iterate through a loop for a default count of 2000, or a user defined count, wait for the consumer to finish its execution, and achieve the lock once signalled by the consumer. It further initializes
+a value in incremental order to the shared buffer n and prints out the produced value. It then, finally, releases the lock and signals the consumer
+to resume it's execution.
+	
+Consumer() - Venkat - The consumer function iterates through a loop for a user defined count or default count of 2000. Waits for the producer to 
+finish its execution, achieve the lock once signalled by the producer. Once the lock is achieved, it executes its critical section and prints the 
+value of shared buffer/ global variable n. Then, it releases the lock and signals the producer to resume.
+	
+The main function and the header file were written collaboratively. Report was also drafted collaboratively.
