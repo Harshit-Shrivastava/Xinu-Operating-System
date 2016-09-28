@@ -1,12 +1,15 @@
 #include <xinu.h>
 #include <prodcons.h>
 
-void producer(int32 count) {
+void producer(sid32 consumed, sid32 produced) {
+	
 	int32 i;
-	for(i = 1; i <= count; i++)
+	for(i = 1; i <= 2000; i++)
 	{
-	   n = i;
-	   printf("Producer value: %d \n",i);
+		wait(consumed);
+		n = i;
+		signal(produced);
+		printf("Producer count = %d",n); 
 	}
 }
 

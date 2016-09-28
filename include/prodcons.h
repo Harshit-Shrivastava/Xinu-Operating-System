@@ -2,8 +2,8 @@
 extern int32 n; /*this is just declaration*/
 
 /*function Prototype*/
-void consumer(int count);
-void producer(int count);
+void consumer(sid32, sid32);
+void producer(sid32, sid32);
 
 /*Semaphone declarations*/
 extern sid32 produced, consumed;

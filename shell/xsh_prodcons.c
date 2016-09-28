@@ -8,9 +8,6 @@ sid32 produced, consumed;
 
 shellcmd xsh_prodcons(int32 nargs, char *args[])
 {
-	produced = semcreate(0);
-	consumed = semcreate(1);
-
 	//Argument verifications and validations
 	int32 count=2000;             //local varible to hold count
 	
@@ -53,7 +50,9 @@ shellcmd xsh_prodcons(int32 nargs, char *args[])
 
 	//create the process producer and consumer and put them in ready queue.
 	//Look at the definations of function create and resume in the system folder for reference.      
-	resume( create(producer, 1024, 20, "producer", 1, count));
-	resume( create(consumer, 1024, 20, "consumer", 1, count));
+	consumed = semcreate(0);
+	produced = semcreate(1);
+	resume( create(producer, 1024, 20, "producer", 2, consumed, produced));
+	resume( create(consumer, 1024, 20, "consumer", 2, consumed, produced));
 	return (0);
 }
