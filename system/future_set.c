@@ -9,12 +9,15 @@
 *syscall: SYSERR or OK
 */
 
+/*
 void print_queuee(queue*q){
     while(q!=NULL){
         printf("element:%d\n\r",q->thread);
         q=q->next;
     }
 }
+
+*/
 
 int set_exclusive(future *f, int * value){
     if(f->state==FUTURE_WAITING || f->state==FUTURE_EMPTY){
@@ -23,13 +26,15 @@ int set_exclusive(future *f, int * value){
         //disable interrupts
         intmask im=disable();
         //put thread into ready queue
-        ready(f->tid);
+        ready(f->pid);
         //restore interrupts.
         restore(im);
         return OK;
     }
     return SYSERR;
 }
+
+/*
 
 int set_shared(future *f, int * value){
     if(f->state!=FUTURE_VALID){
@@ -57,10 +62,13 @@ int set_shared(future *f, int * value){
     }
     return SYSERR;
 }
+*/
 /*
  * consumer has to check if both queues are empty before setting the state. 
  * AND set the states accordingly.
  */
+
+/*
 int set_queue(future *f, int * value){
    if (get_head != get_tail)
    {
@@ -93,3 +101,4 @@ syscall future_set(future *f, int *value){
     }
     return SYSERR;
 }
+*/

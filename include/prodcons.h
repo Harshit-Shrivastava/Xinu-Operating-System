@@ -13,7 +13,7 @@ typedef unsigned int uint;
  /* Declare the required semaphores */
    extern sid32 consumed, produced; 
   /*function Prototype*/
- void consumer(sid32 consumed, sid32 produced, int32 count));
+ void consumer(sid32 consumed, sid32 produced, int32 count);
  void producer(sid32 consumed, sid32 produced, int32 count);
 
  uint future_cons(future *fut);

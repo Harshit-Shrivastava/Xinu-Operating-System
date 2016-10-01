@@ -15,10 +15,8 @@ future* future_alloc(int future_flag){
 	future *fut = getmem(sizeof(future));
 	fut->flag = future_flag;
 	fut->state = FUTURE_EMPTY;
-	fut->tid=NULL;
-    fut->set_queue=NULL;
-    fut->get_queue=NULL;
-
+	fut->pid = NULL;
+	
     // printf("future is allocated with flag=%d\n\r",fut->flag);
 	restore(mask);
 	return fut;

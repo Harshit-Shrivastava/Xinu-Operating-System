@@ -13,7 +13,7 @@
 int get_exclusive(future *f, int *value){
     if(f->state==FUTURE_EMPTY){
         //set tid:
-        f->tid=getpid();
+        f->pid=getpid();
         //set state:
         f->state=FUTURE_WAITING;
         //disable interrupts
@@ -25,7 +25,7 @@ int get_exclusive(future *f, int *value){
             f->state=FUTURE_EMPTY;
             *value=f->value;
             //reset tid:
-            f->tid=NULL;
+            f->pid=NULL;
             return OK;
         }
     }
@@ -35,12 +35,13 @@ int get_exclusive(future *f, int *value){
         f->state=FUTURE_EMPTY;
         *value=f->value;
         //reset tid:
-        f->tid=NULL;
+        f->pid=NULL;
         restore(im);
         return OK;
 
     }
 }
+/*
 
 int get_shared(future *f, int * value){
     while(1){
@@ -95,16 +96,18 @@ int get_shared(future *f, int * value){
         }
     }
 }
+*/
 
+/*
 int get_queue(future *f, int * value){
     if (set_head != set_tail)
    {
        intmask im = disable();
        future *temp = dq_set();
-       printf("%d\n", temp->tid);
+       printf("%d\n", temp->pid);
        temp->state = FUTURE_VALID;
        *value = temp->value;
-       resume(temp->tid);
+       resume(temp->pid);
        restore(im);
    }
    else{
@@ -125,7 +128,8 @@ int get_queue(future *f, int * value){
         restore(im);
    }
 }
-
+*/
+/*
 syscall future_get(future *f, int *value){
     //if tid id not set and state is empty
     if(f->flag==FUTURE_EXCLUSIVE){
@@ -139,3 +143,4 @@ syscall future_get(future *f, int *value){
     }
     return SYSERR;
 }
+*/
