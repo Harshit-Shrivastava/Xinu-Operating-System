@@ -1,0 +1,25 @@
+#include <prodcons.h>
+#include <stdlib.h>
+/*
+*Description
+*Allocates a new future (in the FUTURE_EMPTY state) in given mode. We will use memget() call to allocate space to new future.
+*Parameters
+*int future_flag: flag to be set for this future
+*Return
+*future: NULL or a valid future reference
+*/
+
+future* future_alloc(int future_flag){
+	intmask mask;
+	mask = disable();
+	future *fut = getmem(sizeof(future));
+	fut->flag = future_flag;
+	fut->state = FUTURE_EMPTY;
+	fut->tid=NULL;
+    fut->set_queue=NULL;
+    fut->get_queue=NULL;
+
+    // printf("future is allocated with flag=%d\n\r",fut->flag);
+	restore(mask);
+	return fut;
+}

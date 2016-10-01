@@ -6,10 +6,13 @@ int32 n;                 //Definition for global variable 'n'
 
 sid32 produced, consumed;
 
+future *f1, *f2, *f3;
+
 shellcmd xsh_prodcons(int32 nargs, char *args[])
 {
 	//Argument verifications and validations
 	int32 count=2000;             //local varible to hold count
+	int32 flag_future = 0; // initialise flag to 0	
 	
 	//Implementation for help
 	if (nargs == 2 && strncmp(args[1], "--help", 7) == 0) {
@@ -50,10 +53,28 @@ shellcmd xsh_prodcons(int32 nargs, char *args[])
 
 	//create the process producer and consumer and put them in ready queue.
 	//Look at the definations of function create and resume in the system folder for reference.      
+
+	if (flag_future == 0)
+	{
 	consumed = semcreate(1);
 	produced = semcreate(0);
 	//resume( create(producer, 1024, 20, "consumer", 3, consumed, produced, count));
 	resume( create(producer, 1024, 20, "producer", 3, consumed, produced, count));
 	resume( create(consumer, 1024, 20, "consumer", 3, consumed, produced, count));
-	return (0);
+	}
+
+	else{
+          f1 = future_alloc(FUTURE_EXCLUSIVE);
+	  f2 = future_alloc(FUTURE_EXCLUSIVE);
+	  f3 = future_alloc(FUTURE_EXCLUSIVE);
+ 
+	  resume( create(future_cons, 1024, 20, "fcons1", 1, f1) );
+	  resume( create(future_prod, 1024, 20, "fprod1", 1, f1) );
+	  resume( create(future_cons, 1024, 20, "fcons2", 1, f2) );
+	  resume( create(future_prod, 1024, 20, "fprod2", 1, f2) );
+	  resume( create(future_cons, 1024, 20, "fcons3", 1, f3) );
+	  resume( create(future_prod, 1024, 20, "fprod3", 1, f3) );	
+	}
+
+return (0);
 }
