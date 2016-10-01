@@ -19,7 +19,7 @@ int get_exclusive(future *f, int *value){
         //disable interrupts
         intmask im=disable();
         //sleep:
-        put_thread_to_sleep(getpid());
+       // put_thread_to_sleep(getpid());
         restore(im);
         if(f->state==FUTURE_VALID){
             f->state=FUTURE_EMPTY;
