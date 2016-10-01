@@ -129,7 +129,7 @@ int get_queue(future *f, int * value){
    }
 }
 */
-/*
+
 syscall future_get(future *f, int *value){
     //if tid id not set and state is empty
     if(f->flag==FUTURE_EXCLUSIVE){
@@ -143,4 +143,4 @@ syscall future_get(future *f, int *value){
     }
     return SYSERR;
 }
-*/
+

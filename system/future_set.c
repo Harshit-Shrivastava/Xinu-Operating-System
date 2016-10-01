@@ -86,7 +86,7 @@ int set_queue(future *f, int * value){
        restore(im);
    }
 }
-
+*/
 syscall future_set(future *f, int *value){
     if(f->flag==FUTURE_EXCLUSIVE){
         return set_exclusive(f,value);
@@ -101,4 +101,4 @@ syscall future_set(future *f, int *value){
     }
     return SYSERR;
 }
-*/
+
