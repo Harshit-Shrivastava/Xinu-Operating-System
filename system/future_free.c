@@ -11,11 +11,6 @@
 
 syscall future_freemem(future* f){
 	intmask im=disable();
-	// if (f->set_queue!=NULL)
- //         freemem(f->set_queue);
- //    if (f->get_queue!=NULL)
- //         freemem(f->get_queue);
- //     freemem(f->value);
      syscall returnval = freemem(f, sizeof(future));
      restore(im);
 	return returnval;

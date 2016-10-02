@@ -6,8 +6,6 @@ syscall future_set(future *future, int *value){
   if(future->state == FUTURE_WAITING || future->state == FUTURE_EMPTY){
     future->value = *value;
     future->state = FUTURE_VALID;
-
-    //signal(future->wait);
     restore(mask);
     return OK;
   }
