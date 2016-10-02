@@ -10,8 +10,8 @@
 */
 
 syscall future_freemem(future* f){
-	intmask im=disable();
-     syscall returnval = freemem(f, sizeof(future));
-     restore(im);
-	return returnval;
+  intmask im=disable();
+  syscall returnval = freemem(f, sizeof(future));
+  restore(im);
+  return returnval;
 }
