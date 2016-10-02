@@ -10,14 +10,12 @@
 */
 
 future* future_alloc(int future_flag){
-	intmask mask;
-	mask = disable();
-	future *fut = getmem(sizeof(future));
-	fut->flag = future_flag;
-	fut->state = FUTURE_EMPTY;
-	fut->pid = NULL;
-	
-    // printf("future is allocated with flag=%d\n\r",fut->flag);
-	restore(mask);
-	return fut;
+  intmask mask;
+  mask = disable();
+  future *fut = getmem(sizeof(future));
+  fut->flag = future_flag;
+  fut->state = FUTURE_EMPTY;
+  fut->pid = NULL;
+  restore(mask);
+  return fut;
 }
