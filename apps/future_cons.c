@@ -1,7 +1,7 @@
 #include <prodcons.h>
 
 uint future_cons(future *fut) {
-  printf("inside coons");
+//  printf("inside coons");
   int i = &fut->value;
   int status;
   status = future_get(fut, &i);
@@ -11,5 +11,6 @@ uint future_cons(future *fut) {
     return -1;
   }
   printf("it produced %d\n", i);
+//  future_free(fut);
   return OK;
 }
