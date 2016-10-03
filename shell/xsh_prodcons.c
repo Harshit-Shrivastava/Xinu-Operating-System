@@ -1,5 +1,6 @@
 #include <xinu.h>
-#include <prodcons.h>
+#include <future.h>
+#include<prodcons.h>
 
 int32 n;                 //Definition for global variable 'n'
 /*Now global variable n will be on Heap so it is accessible all the processes i.e. consume and produce*/
@@ -77,7 +78,7 @@ shellcmd xsh_prodcons(int32 nargs, char *args[])
 				count = atoi(args[1]);
 			}
 		}
-		else if(nargs > 3) {
+		else if(nargs > 2) {
 		
 			printf("Too many arguements \n");
 			return 0;
