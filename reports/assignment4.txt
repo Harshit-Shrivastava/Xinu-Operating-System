@@ -1,0 +1,21 @@
+Report for Assignment 4
+-----------------------
+
+future_get() and future_alloc() - This code was written by Venkat Sambandhan
+future_set() and future_free() - This code was written by Harshit Shrivastava
+main() - Collaborately worked on this code fragment
+
+Functions used:-
+future_alloc(): This is responsible for allocating a new future (in the FUTURE_EMPTY state) in given mode. getmem() call is used to allocate space toa new future.
+
+future_free(): This is responsible for freeing the allocated future. It simply frees the space assigned to Future. freemem() call is used to free thespace.
+
+future_get(): This is responsible for getting the value of a future set by an operation and changing the state of future from FUTURE_VALID to 
+FUTURE_EMPTY.
+
+future_set(): This is responsible for setting a value of a future and changing the state from FUTURE_EMPTY or FUTURE_WAITING to FUTURE_VALID.
+
+future_prod(): This is responsible for producing a random value for the consumer that is already created and waiting for the value to be produced.
+
+future_cons(): This is resposible for creating a consumer process. It also make it go to sleep. The process is awaken only when the value is produce
+in the future.
