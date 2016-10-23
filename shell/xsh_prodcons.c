@@ -7,11 +7,20 @@ int32 n;                 //Definition for global variable 'n'
 sid32 produced, consumed;
 future  *f_exclusive,  *f_shared,  *f_queue;
 
+pid32 queue[5];
+int rear = -1;
+int front = -1;
+
+
+
+
+
 int set_head = 0;
 int set_tail = 0;
 
 int get_head = 0;
 int get_tail = 0;
+
 
 future set_q[5];
 future get_q[5];
@@ -79,26 +88,28 @@ shellcmd xsh_prodcons(int32 nargs, char *args[]){
 
   
 //Test FUTURE_EXCLUSIVE
- 	resume( create(future_cons, 1024, 20, "fcons1", 1, f_exclusive) );
-  	resume( create(future_prod, 1024, 20, "fprod1", 1, f_exclusive) );
+ 	 //  resume( create(future_cons, 1024, 20, "fcons1", 1, f_exclusive) );
+  	// resume( create(future_prod, 1024, 20, "fprod1", 1, f_exclusive) );
  
- 		// Test FUTURE_SHARED
+ 		//  Test  FUTURE_QUEUE
+         // resume(  create(future_cons,  1024,  20,  "fcons6",  1,  f_queue)  );
+         // resume(  create(future_cons,  1024,  20,  "fcons7",  1,  f_queue)  );
+         // resume(  create(future_cons,  1024,  20,  "fcons7",  1,  f_queue)  );  
+         // resume(  create(future_cons,  1024,  20,  "fcons7",  1,  f_queue)  );
+         // resume(  create(future_prod,  1024,  20,  "fprod3",  1,  f_queue)  );
+         // resume(  create(future_prod,  1024,  20,  "fprod4",  1,  f_queue)  );
+         // resume(  create(future_prod,  1024,  20,  "fprod5",  1,  f_queue)  );
+         // resume(  create(future_prod,  1024,  20,  "fprod6",  1,  f_queue)  ); 
+
+    // Test FUTURE_SHARED
         resume(  create(future_cons,  1024,  20,  "fcons2",  1,  f_shared)  );
         resume(  create(future_cons,  1024,  20,  "fcons3",  1,  f_shared)  );
-        resume(  create(future_cons,  1024,  20,  "fcons4",  1,  f_shared)  );  
-        resume(  create(future_cons,  1024,  20,  "fcons5",  1,  f_shared)  );  
+        // resume(  create(future_cons,  1024,  20,  "fcons4",  1,  f_shared)  );  
+        // resume(  create(future_cons,  1024,  20,  "fcons5",  1,  f_shared)  );  
         resume(  create(future_prod,  1024,  20,  "fprod2",  1,  f_shared)  );
         
-        //  Test  FUTURE_QUEUE
-        resume(  create(future_cons,  1024,  20,  "fcons6",  1,  f_queue)  );
-        resume(  create(future_cons,  1024,  20,  "fcons7",  1,  f_queue)  );
-        resume(  create(future_cons,  1024,  20,  "fcons7",  1,  f_queue)  );  
-        resume(  create(future_cons,  1024,  20,  "fcons7",  1,  f_queue)  );
-        resume(  create(future_prod,  1024,  20,  "fprod3",  1,  f_queue)  );
-        resume(  create(future_prod,  1024,  20,  "fprod4",  1,  f_queue)  );
-        resume(  create(future_prod,  1024,  20,  "fprod5",  1,  f_queue)  );
-        resume(  create(future_prod,  1024,  20,  "fprod6",  1,  f_queue)  );
-		sleep(1); 
+        
+		// sleep(1);     
 
         syscall exclusive = future_freemem(f_exclusive);
     	syscall shared = future_freemem(f_shared); 

@@ -11,13 +11,6 @@
 *syscall: SYSERR or OK
 */
 
-void print_queuee(queue*q){
-    while(q!=NULL){
-        printf("element:%d\n\r",q->thread);
-        q=q->next;
-    }
-}
-
 int set_exclusive(future *f, int * value){
     if(f->state==FUTURE_WAITING || f->state==FUTURE_EMPTY){
         f->value=*value;
@@ -34,30 +27,36 @@ int set_exclusive(future *f, int * value){
 }
 
 int set_shared(future *f, int * value){
-    if(f->state!=FUTURE_VALID){
+  printf("In producer\n");
+    // if(f->state==FUTURE_WAITING){
         //print_queuee(f->get_queue);
         intmask im=disable();
         //set val
         f->value=*value;
+        printf("value = %d\n",f->value);
         //set state
         int oldstate=f->state;
         //printf("oldstate=%d\n\r",oldstate);
         f->state=FUTURE_VALID;
         //if no consumer waiting
-        if(oldstate!=FUTURE_WAITING){
-            restore(im);
-            return OK;
-        }
+        // if(oldstate!=FUTURE_WAITING){
+        //     restore(im);
+        //     return OK;
+        // }
         //wake up first consumer:
-        //printf("prod state:%d\n\r",oldstate);
+       printf("prod state:%d\n\r",oldstate);
+       while (front < 4){
         //Dequeue first in queue:
-        int first=check_thread(f->get_queue);
-        Dequeue(f->get_queue);
+        pid32 first = Dequeue();
+       printf("first = %d\n", first);
         resume(first);
+        front++;
+        }
         restore(im);
         return OK;
-    }
-    return SYSERR;
+    // }
+    // printf("In SYSERR\n");
+    // return SYSERR;
 }
 /*
  * consumer has to check if both queues are empty before setting the state. 

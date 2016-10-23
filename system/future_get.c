@@ -52,16 +52,16 @@ int get_shared(future *f, int * value){
             //get value:
             *value=f->value;
             //last in queue?
-            if(f->get_queue!=NULL && f->get_queue->thread!=-1){
+            if(front != 4 && rear != 4){
+                printf("Inside future valid in shared\n");
                 //wake up next consumer:
                 intmask im=disable();
-                //printf("valid, check getqueue\n\r");
+             //   printf("valid, check getqueue\n\r");
                 //print_queue(f->get_queue);
                 //printf("end getqueue, first in line:%d\n\r",f->get_queue->thread);
                 //Dequeue first in queue:
-                int first=check_thread(f->get_queue);
                 //Dequeue:
-                Dequeue(f->get_queue);
+                pid32 first = Dequeue();
                 ready(first);
                 restore(im);
                 return OK;
@@ -76,26 +76,27 @@ int get_shared(future *f, int * value){
             }
         }
         else if(f->state==FUTURE_WAITING){
-            //printf("waiting at pid %d\n\r",getpid());
+            printf("waiting at pid %d\n\r",getpid());
             //add yourself to queue:
             intmask im=disable();
-            Enqueue(f->get_queue,getpid());
+
+            Enqueue(getpid());
             //print_queue(f->get_queue);
             //  put_thread_to_sleep(getpid())
-	    suspend(f->pid);
+	        suspend(getpid());
             restore(im);
         }
         else if(f->state==FUTURE_EMPTY){
-            //printf("empty at pid %d\n\r",getpid());
+            printf("empty at pid %d\n",getpid());
             intmask im=disable();
             //make queue:
             //build head node:
-            f->get_queue=(queue*)getmem(sizeof(queue));
-            f->get_queue->thread=getpid();
-            f->get_queue->next=NULL;
+            f->pid=getpid();
             f->state=FUTURE_WAITING;
+            printf("Before Enqueue\n");
+            Enqueue(getpid());
             //  put_thread_to_sleep(getpid());
-	    suspend(f->pid);
+	       suspend(f->pid);
             restore(im);
         }
     }

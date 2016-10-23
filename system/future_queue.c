@@ -3,29 +3,34 @@
 
 //add to queue
 //queue must be valid.
-void Enqueue(queue *q,pid32 process){
-    while(q->next!=NULL){
-        q=q->next;
-    }
-    q->next=(queue*)getmem(sizeof(queue));
-    ((queue*)(q->next))->thread=process;
-    ((queue*)(q->next))->next=NULL;
-}
-
-pid32 check_thread(queue *q){
-    return q->thread;
+void Enqueue(pid32 pid){
+  if(rear==-1 && front==-1) {
+    queue[0]=pid;
+    front=0; rear=0;
+   }        
+   else {
+     rear++;
+     queue[rear]=pid;
+   }
+   // printf("front = %d\n", front);
+   // printf("rear = %d\n", rear);
+   printf("queue[0] = %d\n", queue[0]);
+   printf("queue[1] = %d\n", queue[1]);
+   printf("queue[2] = %d\n", queue[2]);
+   printf("queue[3] = %d\n", queue[3]);
 }
 
 //pop first element of queue
-void Dequeue(queue *q){
-    queue * new=q->next;
-    if(new==NULL){
-        q->thread=-1;
-        return;
-    }
-    q->next=new->next;
-    q->thread=new->thread;
-    // freemem(next);
+pid32 Dequeue(){
+  pid32 pid=queue[front];
+  if(rear==-1 && front==-1) {
+    return SYSERR;
+  }
+  else {
+    queue[front]=-1;
+    front++;      
+   }
+  return pid;
 }
 
 void nq_set(future *f){
