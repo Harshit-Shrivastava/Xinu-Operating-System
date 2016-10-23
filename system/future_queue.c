@@ -12,12 +12,6 @@ void Enqueue(pid32 pid){
      rear++;
      queue[rear]=pid;
    }
-   // printf("front = %d\n", front);
-   // printf("rear = %d\n", rear);
-   printf("queue[0] = %d\n", queue[0]);
-   printf("queue[1] = %d\n", queue[1]);
-   printf("queue[2] = %d\n", queue[2]);
-   printf("queue[3] = %d\n", queue[3]);
 }
 
 //pop first element of queue

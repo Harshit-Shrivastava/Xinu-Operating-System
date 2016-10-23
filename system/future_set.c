@@ -27,31 +27,20 @@ int set_exclusive(future *f, int * value){
 }
 
 int set_shared(future *f, int * value){
-  printf("In producer\n");
     // if(f->state==FUTURE_WAITING){
         //print_queuee(f->get_queue);
         intmask im=disable();
         //set val
         f->value=*value;
-        printf("value = %d\n",f->value);
         //set state
         int oldstate=f->state;
         //printf("oldstate=%d\n\r",oldstate);
         f->state=FUTURE_VALID;
         //if no consumer waiting
-        // if(oldstate!=FUTURE_WAITING){
-        //     restore(im);
-        //     return OK;
-        // }
-        //wake up first consumer:
-       printf("prod state:%d\n\r",oldstate);
-       while (front < 4){
-        //Dequeue first in queue:
-        pid32 first = Dequeue();
-       printf("first = %d\n", first);
-        resume(first);
-        front++;
-        }
+        while (front <= rear)
+       {
+         resume(Dequeue());
+       }
         restore(im);
         return OK;
     // }
@@ -65,7 +54,7 @@ int set_shared(future *f, int * value){
 int set_queue(future *f, int * value){
    if (get_head != get_tail)
    {
-       f->state = FUTURE_VALID;
+       // f->state = FUTURE_VALID;
        f->pid = getpid();
        f->value = *value;
        // printf("hello %d\n", *value);

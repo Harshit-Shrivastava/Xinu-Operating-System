@@ -88,24 +88,24 @@ shellcmd xsh_prodcons(int32 nargs, char *args[]){
 
   
 //Test FUTURE_EXCLUSIVE
- 	 //  resume( create(future_cons, 1024, 20, "fcons1", 1, f_exclusive) );
-  	// resume( create(future_prod, 1024, 20, "fprod1", 1, f_exclusive) );
+ 	  resume( create(future_cons, 1024, 20, "fcons1", 1, f_exclusive) );
+  	resume( create(future_prod, 1024, 20, "fprod1", 1, f_exclusive) );
  
  		//  Test  FUTURE_QUEUE
-         // resume(  create(future_cons,  1024,  20,  "fcons6",  1,  f_queue)  );
-         // resume(  create(future_cons,  1024,  20,  "fcons7",  1,  f_queue)  );
-         // resume(  create(future_cons,  1024,  20,  "fcons7",  1,  f_queue)  );  
-         // resume(  create(future_cons,  1024,  20,  "fcons7",  1,  f_queue)  );
-         // resume(  create(future_prod,  1024,  20,  "fprod3",  1,  f_queue)  );
-         // resume(  create(future_prod,  1024,  20,  "fprod4",  1,  f_queue)  );
-         // resume(  create(future_prod,  1024,  20,  "fprod5",  1,  f_queue)  );
-         // resume(  create(future_prod,  1024,  20,  "fprod6",  1,  f_queue)  ); 
+         resume(  create(future_cons,  1024,  20,  "fcons6",  1,  f_queue)  );
+         resume(  create(future_cons,  1024,  20,  "fcons7",  1,  f_queue)  );
+         resume(  create(future_cons,  1024,  20,  "fcons8",  1,  f_queue)  );  
+         resume(  create(future_cons,  1024,  20,  "fcons9",  1,  f_queue)  );
+         resume(  create(future_prod,  1024,  20,  "fprod3",  1,  f_queue)  );
+         resume(  create(future_prod,  1024,  20,  "fprod4",  1,  f_queue)  );
+         resume(  create(future_prod,  1024,  20,  "fprod5",  1,  f_queue)  );
+         resume(  create(future_prod,  1024,  20,  "fprod6",  1,  f_queue)  ); 
 
     // Test FUTURE_SHARED
         resume(  create(future_cons,  1024,  20,  "fcons2",  1,  f_shared)  );
         resume(  create(future_cons,  1024,  20,  "fcons3",  1,  f_shared)  );
-        // resume(  create(future_cons,  1024,  20,  "fcons4",  1,  f_shared)  );  
-        // resume(  create(future_cons,  1024,  20,  "fcons5",  1,  f_shared)  );  
+        resume(  create(future_cons,  1024,  20,  "fcons4",  1,  f_shared)  );  
+        resume(  create(future_cons,  1024,  20,  "fcons5",  1,  f_shared)  );  
         resume(  create(future_prod,  1024,  20,  "fprod2",  1,  f_shared)  );
         
         
@@ -115,12 +115,9 @@ shellcmd xsh_prodcons(int32 nargs, char *args[]){
     	syscall shared = future_freemem(f_shared); 
 	syscall queue = future_freemem(f_queue);
 		if (!(exclusive == (uint32 *)OK && shared == (uint32 *)OK && queue == (uint32 *)OK))
-		{
 			printf("There is an error, please check\n");
-		}
-		else{
+		else
 			printf("Success\n");
-		}	
   }
   return (0);
 }

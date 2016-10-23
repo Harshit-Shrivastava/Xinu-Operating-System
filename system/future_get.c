@@ -47,22 +47,15 @@ int get_exclusive(future *f, int *value){
 
 int get_shared(future *f, int * value){
     while(1){
-        //printf("getter pid=%d\n\r",getpid());
         if(f->state==FUTURE_VALID){
             //get value:
             *value=f->value;
             //last in queue?
             if(front != 4 && rear != 4){
-                printf("Inside future valid in shared\n");
                 //wake up next consumer:
                 intmask im=disable();
-             //   printf("valid, check getqueue\n\r");
-                //print_queue(f->get_queue);
-                //printf("end getqueue, first in line:%d\n\r",f->get_queue->thread);
-                //Dequeue first in queue:
-                //Dequeue:
-                pid32 first = Dequeue();
-                ready(first);
+                // pid32 first = Dequeue();
+                // resume(first);
                 restore(im);
                 return OK;
             }
@@ -76,10 +69,8 @@ int get_shared(future *f, int * value){
             }
         }
         else if(f->state==FUTURE_WAITING){
-            printf("waiting at pid %d\n\r",getpid());
             //add yourself to queue:
             intmask im=disable();
-
             Enqueue(getpid());
             //print_queue(f->get_queue);
             //  put_thread_to_sleep(getpid())
@@ -87,16 +78,14 @@ int get_shared(future *f, int * value){
             restore(im);
         }
         else if(f->state==FUTURE_EMPTY){
-            printf("empty at pid %d\n",getpid());
             intmask im=disable();
             //make queue:
             //build head node:
             f->pid=getpid();
             f->state=FUTURE_WAITING;
-            printf("Before Enqueue\n");
             Enqueue(getpid());
             //  put_thread_to_sleep(getpid());
-	       suspend(f->pid);
+	        suspend(f->pid);
             restore(im);
         }
     }
@@ -127,7 +116,7 @@ int get_queue(future *f, int * value){
             f->pid = getpid();
             nq_get(f);
          //   put_thread_to_sleep(f->pid);
-	suspend(f->pid);
+	        suspend(f->pid);
         }
         restore(im);
    }
