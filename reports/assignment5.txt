@@ -1,0 +1,16 @@
+future_get(), enqueue() and future_alloc() - Venkat
+future_set(), future_free()and dequeue() - Harshit
+main() and queue - Collaborately worked
+
+Functions used:
+future_alloc(): It allocates a new future (in the FUTURE_EMPTY state) in given mode. We use getmem() call to allocate space to new future.
+future_free(): It frees the allocated future. When called, this function will simply free the space assigned to Future. We use freemem() call to free
+space.
+future_get(): It gets the value of a future set by an operation and changes the state of the future from FUTURE_VALID to FUTURE_EMPTY.
+future_set(): It sets a value in the future and changes its state from FUTURE_EMPTY or FUTURE_WAITING to FUTURE_VALID.
+future_prod(): It produces a random value for the consumer that is already created and waiting for the value to be produced.
+future_cons(): It creates a consumer process, and goes to sleep. The process is awaken only when the value is produced in the future.
+Enqueue() - The calling process suspends itself and uses enqueue() to enquque itself in the queue.
+Dequeue() - When a process is resumed, it is removed from the queue using the funtion Dequeue.
+Check_Thread() - It returns the 1st suspended process's ID for resuming
+suspend() and resume() - They are used for synchronisation between the futures
