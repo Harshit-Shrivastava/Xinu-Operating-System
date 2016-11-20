@@ -1,0 +1,26 @@
+Assignment 7
+
+Authors:
+Harshit Shrivastava (hshrivas)
+Venkat Sambandhan (vensamba)
+
+Description:
+For this assignment we implemented a simple filesystem that works on in-memory allocation to mimic a file system. 
+
+fs_create(char *filename, int mode)
+Given a filename, fcreate checks to see if there are no conflicts with what already exists in the existing filesystem. Otherwise, it will go ahead and do the same actions as fopen, which is to create a new entry in the open file table (OFT), mark the file as open, and create a new dirent and inode that represent this new file. These changes are reflected back to the OFT.
+
+fs_open(char *filename, int flags)
+Given a filename, fopen checks to see if such a file exists in the filesystem (which is just the root directory for this assignment). If there is one, the function creates a new entry in the open file table (OFT), mark the file as open in the OFT, and creates a new dirent and inode that represent this file.  These changes are reflected back to the OFT.
+
+fs_close(int fd)
+Given a file descriptor fd, fclose simply looks at the OFT and marks the file of interest as closed.
+
+fs_seek(int fd, int offset)
+Given a file descriptor fd and offset, fseek will set the pointer in the file according to the given offset.
+
+fs_read(int fd, void *buf, int nbytes)
+Given a file descriptor fd, buffer buf, and nbytes, reads nbytes bytes of data from the file described by fd into buf. This is done by first calculating the inode block by dividing the filepointer by the block size. Then it finds the offset within a block by performing (filepointer mod block size). If nbytes is not greater than the difference between the block size and the filepointer offset, fread will simply read nbytes from the offset. Otherwise, when fread reaches the end of the block, it will read the rest of the nbytes from the next block.
+
+fs_write(int fd, void *buf, int nbytes)
+fwrite does the same thing as fread, writing bytes intead of reading them.
