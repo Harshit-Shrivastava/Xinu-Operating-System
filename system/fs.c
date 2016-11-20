@@ -1,8 +1,10 @@
-#include <fs.h>
+#include<xinu.h>
+#include<kernel.h>
 #include <stddef.h>
-
+#include<string.h>
 
 #if FS
+#include<fs.h>
 
 static struct fsystem fsd;
 int dev0_numblocks;

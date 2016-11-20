@@ -1,9 +1,9 @@
 /* This file implements the memory "block store" for use by the in-memory filesystem */
-
-#include <fs.h>
-#include <stddef.h>
-
-
+#include<xinu.h>
+#include<stddef.h>
+#include<stdio.h>
+#include<string.h>
+#include<fs.h>
 
 extern int dev0_numblocks;
 extern int dev0_blocksize;

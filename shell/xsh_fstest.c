@@ -1,8 +1,8 @@
-#include <xinu.h>
+#include<xinu.h>
 #include <stddef.h>
-#include <stdio.h>
-#include <string.h>
-#include <fs.h>
+#include<stdio.h>
+#include<string.h>
+#include<fs.h>
 #define SIZE 1200
 
 void testbitmask(void);
@@ -49,11 +49,11 @@ void testbitmask(void);
         return SYSERR;
     }
 
-#ifdef FS
+#if 1 
 
     bs_mkdev(0, MDEV_BLOCK_SIZE, MDEV_NUM_BLOCKS); /* device "0" and default blocksize (=0) and count */
     fs_mkfs(0,DEFAULT_NUM_INODES); /* bsdev 0*/
-    fs_testbitmask();
+    testbitmask();
     
     buf1 = getmem(SIZE*sizeof(char));
     buf2 = getmem(SIZE*sizeof(char));
@@ -68,6 +68,9 @@ void testbitmask(void);
         j = j+33;
         buf1[i] = (char) j;
     }
+
+    //debug:
+    // printf("debug:buffer content:\n\r%s\n\r",buf1);
     
     rval = fs_write(fd,buf1,SIZE);
     if(rval == 0 || rval != SIZE )
@@ -77,12 +80,14 @@ void testbitmask(void);
     }
 
     // Now my file offset is pointing at EOF file, i need to bring it back to start of file
-    // Assuming here implementation of fs_seek is like "original_offset = original_offset + input_offset_from_fs_seek"
+    // Assuming here implementation of fs_seek is like "original_offset = original_offset + 
+    // input_offset_from_fs_seek"
+    //printf("debug:fstest:rval=%d\n",rval);
     fs_seek(fd,-rval); 
     
     //read the file 
     rval = fs_read(fd, buf2, rval);
-    buf2[rval] = EOF; // TODO: Write end of file symbol i.e. slash-zero instead of EOF. I can not do this because of WIKI editor limitation    
+    buf2[rval] = '\0'; // used to be EOF     
 
     if(rval == 0)
     {
@@ -90,13 +95,18 @@ void testbitmask(void);
         goto clean_up;
     }
         
-    printf("\n\rContent of file %s",buf2);
+    //printf("\n\rContent of file\n\r%s\n\r",buf2);
     
     rval = fs_close(fd);
     if(rval != OK)
     {
-        printf("\n\rReturn val for fclose : %d",rval);
+        printf("\n\rReturn val for fs_close : %d",rval);
     }
+
+    fd=fs_open("Test_File",0);
+    char buf3[10];
+    fs_read(fd,buf3,10);
+    // printf("buf3=%s\n\r",buf3);
 
 clean_up:
     freemem(buf1,SIZE);
