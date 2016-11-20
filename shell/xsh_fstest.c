@@ -95,7 +95,7 @@ void testbitmask(void);
         goto clean_up;
     }
         
-    //printf("\n\rContent of file\n\r%s\n\r",buf2);
+    printf("\n\rContent of file\n\r%s\n\r",buf2);
     
     rval = fs_close(fd);
     if(rval != OK)

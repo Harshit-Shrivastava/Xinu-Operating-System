@@ -61,5 +61,5 @@ extern	struct	dentry	devtab[]; /* one entry per device */
 #define	IRQBASE	     32		/* base ivec for IRQ0			*/
 #define	IRQ_TIMER    4
 #define CLKFREQ      200000000	/* 200 MHz clock			*/
-
+#define FS 1
 #define	LF_DISK_DEV	RAM0
