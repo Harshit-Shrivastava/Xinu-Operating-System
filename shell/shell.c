@@ -26,6 +26,7 @@ const	struct	cmdent	cmdtab[] = {
 	{"test_mmu", 	FALSE, 	xsh_mmu},
 	{"hello", FALSE, xsh_hello},
 	{"prodcons",	FALSE,	xsh_prodcons},
+	{"fstest", 	FALSE,  xsh_fstest},
 #ifdef ARM_BBB
   	{"arp",		FALSE,	xsh_arp},
   	{"ipaddr",	FALSE,	xsh_ipaddr},

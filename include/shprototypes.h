@@ -81,3 +81,6 @@ extern  shellcmd xsh_mmu	(int32, char *[]);
 
 /* in file xsh_prodcons.c */
 extern shellcmd xsh_prodcons (int32, char *[]);
+
+/* File systems */
+extern shellcmd xsh_fstest	(int32, char *[]);
