@@ -24,3 +24,9 @@ Given a file descriptor fd, buffer buf, and nbytes, reads nbytes bytes of data f
 
 fs_write(int fd, void *buf, int nbytes)
 fwrite does the same thing as fread, writing bytes intead of reading them.
+
+Lessons learnt:-
+Learnt how Linux file systems work and based on that developed one file system in Xinu. Learnt how to implement an in-memory file system for Xinu.
+
+Team Contribution:-
+We divided the tasks equally among ourselves so that both the members have a complete understanding of the code.
