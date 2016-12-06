@@ -1,5 +1,4 @@
-/* in file addargs.c */
-extern	status	addargs(pid32, int32, int32[], int32,char *, void *);
+extern status	addargs(pid32, int32, int32[], int32,char *, void *);
 
 /* in file am335x_eth_init.c */
 extern	int32	am335x_eth_init(struct ethcblk *);
@@ -27,7 +26,7 @@ extern	pri16	chprio(pid32, pri16);
 
 /* in file clkupdate.S */
 
-extern	ulong	clkcount(void);
+extern	uint32	clkcount(void);
 
 /* in file clkhandler.c */
 
@@ -116,8 +115,6 @@ extern	syscall	getc(did32);
 
 /* in file getitem.c */
 extern	pid32	getfirst(qid16);
-
-pid32 getitem(pid32);
 
 /* in file getmem.c */
 extern	char	*getmem(uint32);
@@ -366,11 +363,6 @@ extern	syscall	ptsend(int32, umsg32);
 
 /* in file putc.c */
 extern	syscall	putc(did32, char);
-
-/* in file queue.c */
-
-pid32 dequeue(qid16);
-pid32 enqueue(pid32, qid16);
 
 /* in file ramclose.c */
 extern	devcall	ramclose(struct dentry *);
@@ -623,25 +615,4 @@ extern	syscall	yield(void);
 		      (((x)<< 8) & 0x00ff0000) | (((x)<<24) & 0xff000000) )
 #define	ntohs(x)   ( ( 0xff & ((x)>>8) ) | ( (0xff & (x)) << 8 ) )
 #define	ntohl(x)   (  (((x)>>24) & 0x000000ff) | (((x)>> 8) & 0x0000ff00) | \
-		      (((x)<< 8) & 0x00ff0000) | (((x)<<24) & 0xff000000) )
-
-
-#ifdef ARM_QEMU
-devcall loopbackInit(struct dentry *);
-devcall loopbackOpen(struct dentry *);
-devcall loopbackClose(struct dentry *);
-devcall loopbackRead(struct dentry *, void *, uint);
-devcall loopbackWrite(struct dentry *, const void *, uint);
-devcall loopbackGetc(struct dentry *);
-devcall loopbackPutc(struct dentry *, char);
-devcall loopbackControl(struct dentry *, int, long, long);
-
-syscall kprintf(char *fmt, ...);
-#endif /* ARM_QEMU */
-
-#ifdef ARM_BBB
-/* Prototypes of I/O functions used throughout the kernel */
-syscall       kprintf(char *fmt, ...);
-syscall       kputc(byte);
-syscall       kgetc(void);
-#endif /* ARM_BBB */
+(((x)<< 8) & 0x00ff0000) | (((x)<<24) & 0xff000000) )
