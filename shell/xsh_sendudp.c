@@ -11,7 +11,9 @@
 shellcmd xsh_sendudp(int nargs, char *args[]) {
 	int	retval;
 	char response[SIZE];
-	uint32 target_ip, locport = 8000;
+	uint32 target_ip, locport = 3000;
+	
+	printf("Command found");
 
 	/* Output info for '--help' argument */
 	if (nargs == 2 && strncmp(args[1], "--help", 7) == 0) 
