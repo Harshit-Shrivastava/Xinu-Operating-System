@@ -62,7 +62,7 @@ shellcmd xsh_udpeserver(int nargs, char *args[])
 	while (TRUE) {
 		retval = udp_recvaddr(slot, &remip, &remport, buff,
 						sizeof(buff), 600000);
-
+		printf("Message from client: %s",buff);
 		if (retval == TIMEOUT) {
 			continue;
 		} else if (retval == SYSERR) {
