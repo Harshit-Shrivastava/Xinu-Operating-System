@@ -45,6 +45,7 @@ struct	arpentry {			/* Entry in the ARP cache	*/
 	uint32	arpaddr;		/* IP address of the entry	*/
 	pid32	arpid;			/* Waiting process or -1 	*/
 	byte	arhaddr[ARP_HALEN];	/* Ethernet address of the entry*/
+	int32   timestamp;		/* Timestamp of most recent cache hit*/
 };
 
 extern struct	arpentry arpcache[];

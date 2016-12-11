@@ -69,6 +69,7 @@ status	arp_resolve (
 
 		if (arptr->arstate == AR_RESOLVED) {
 			memcpy(mac, arptr->arhaddr, ARP_HALEN);
+			arptr->timestamp = clktime;
 			restore(mask);
 			return OK;
 		}
@@ -214,6 +215,7 @@ void	arp_in (
 		if (arptr->arstate == AR_PENDING) {
 			/* Mark resolved and notify waiting process */
 			arptr->arstate = AR_RESOLVED;
+			arptr->timestamp = clktime;
 			send(arptr->arpid, OK);
 		}
 	}
@@ -327,6 +329,35 @@ int32	arp_alloc ()
 }
 
 /*------------------------------------------------------------------------
+ * arp_cache_clear  -  Clear cache older than 5 minutes
+ *------------------------------------------------------------------------
+ */
+
+int32 arp_cache_clear()
+{
+	
+	int32	slot;
+	intmask	mask;			/* Saved interrupt mask		*/
+	mask = disable();
+	for(slot=0; slot < ARP_SIZ; slot++){
+		if(arpcache[slot].arstate == AR_RESOLVED){
+			
+			if((clktime - arpcache[slot].timestamp) > 300){
+			//memset((char *)&arpcache[slot], NULLCH, sizeof(struct arpentry));
+			
+			arpcache[slot].arstate = AR_FREE;
+			arpcache[slot].arpaddr = 0;
+			arpcache[slot].arpid   = -1;
+			memset(&arpcache[slot].arhaddr, NULLCH, ARP_HALEN*sizeof(byte));
+			arpcache[slot].timestamp = 0;
+			}	
+		}
+	}	
+	restore(mask);
+	return 0;
+}
+
+/*------------------------------------------------------------------------
  * arp_ntoh  -  Convert ARP packet fields from net to host byte order
  *------------------------------------------------------------------------
  */
@@ -355,3 +386,4 @@ void 	arp_hton(
 	pktptr->arp_sndpa = htonl(pktptr->arp_sndpa);
 	pktptr->arp_tarpa = htonl(pktptr->arp_tarpa);
 }
+
