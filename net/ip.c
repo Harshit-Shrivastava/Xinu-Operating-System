@@ -1,3 +1,6 @@
+/* ip.c - ip_in, ip_send, ip_local, ip_out, ipcksum, ip_hton, ip_ntoh,	*/
+/*		 ipout, ip_enqueue					*/
+
 #include <xinu.h>
 
 struct	iqentry	ipoqueue;		/* Queue of outgoing packets	*/
