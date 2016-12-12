@@ -32,6 +32,7 @@ void	clkhandler()
 	if(count1000 == 0) {
 		clktime++;
 		count1000 = 1000;
+		arp_cache_clear();
 	}
 
 	/* check if sleep queue is empty */
