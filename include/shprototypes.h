@@ -86,3 +86,5 @@ extern shellcmd xsh_prodcons (int32, char *[]);
 extern shellcmd xsh_fstest (int32, char *[]);
 
 extern shellcmd xsh_arp_test (int32, char *[]);
+
+extern shellcmd xsh_udp_request (int32, char *[]);
